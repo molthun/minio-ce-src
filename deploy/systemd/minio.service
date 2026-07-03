@@ -1,0 +1,33 @@
+[Unit]
+Description=MinIO CE (official upstream community build with local security hardening)
+Documentation=https://github.com/minio/minio
+Wants=network-online.target
+After=network-online.target
+AssertFileIsExecutable=/usr/local/bin/minio
+
+[Service]
+Type=notify
+User=minio
+Group=minio
+EnvironmentFile=/etc/minio/minio.env
+ExecStartPre=/bin/sh -c 'if [ -z "${MINIO_VOLUMES}" ]; then echo "MINIO_VOLUMES is not set in /etc/minio/minio.env"; exit 1; fi'
+ExecStart=/usr/local/bin/minio server $MINIO_OPTS $MINIO_VOLUMES
+Restart=always
+RestartSec=5s
+LimitNOFILE=1048576
+TasksMax=infinity
+OOMScoreAdjust=-1000
+SendSIGKILL=no
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+LockPersonality=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

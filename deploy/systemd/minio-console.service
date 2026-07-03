@@ -1,0 +1,30 @@
+[Unit]
+Description=MinIO full web console (opens3/console community fork)
+Documentation=https://github.com/opens3/console
+Wants=network-online.target
+After=network-online.target minio.service
+Requires=minio.service
+AssertFileIsExecutable=/usr/local/bin/minio-console
+
+[Service]
+Type=simple
+User=minio
+Group=minio
+EnvironmentFile=/etc/minio/minio-console.env
+ExecStart=/usr/local/bin/minio-console server --host 0.0.0.0 --port 9090
+Restart=always
+RestartSec=5s
+LimitNOFILE=65536
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+LockPersonality=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
