@@ -1,8 +1,10 @@
-# Build workspace — never committed (re-created by the scripts).
-/work/            # cloned upstream sources + toolchain
-/dist/            # built binaries
-/pkg/             # assembled deploy tarball
-/cache/           # go build/module cache
+# Build workspace — re-created by the scripts, never committed.
+/work/
+/dist/
+/pkg/
+/cache/
+
+# Archives / logs
 *.tar.gz
 *.log
 
@@ -12,7 +14,7 @@
 *.pem
 secrets/
 
-# OS/editor
+# OS / editor
 *.swp
 *~
 .DS_Store

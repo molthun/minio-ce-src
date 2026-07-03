@@ -1,0 +1,6 @@
+# Normalise line endings to LF for all text (scripts must stay LF for bash).
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.woff binary
+*.woff2 binary
